@@ -17,6 +17,6 @@
 ### Langkah-Langkah
 - Download file Index di atas
 - Lalu buka file Melalui file manager dan edit file nya
-- temukan code yang berhubuhan dengan id chat dan API tele
-- GANTI DENGAN ID DAN API ANDA
+- temukan code yang berhubuhan dengan id chat dan Bot token
+- GANTI DENGAN ID DAN BOT TOKEN ANDA
 - COBA JALANKAN DI LOCCALHOST
