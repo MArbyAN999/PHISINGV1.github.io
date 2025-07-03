@@ -11,12 +11,12 @@
 
 ## 🛠️ Instalasi
 ### Prasyarat
-- Termux
-- Git
+- File Manager
 - Browser (Chorome)
 
 ### Langkah-Langkah
-1. Clone repo:
-   ```bash
-   git clone https://github.com/username/repo.git
-   cd repo
+- Download file Index di atas
+- Lalu buka file Melalui file manager dan edit file nya
+- temukan code yang berhubuhan dengan id chat dan API tele
+- GANTI DENGAN ID DAN API ANDA
+- COBA JALANKAN DI LOCCALHOST
