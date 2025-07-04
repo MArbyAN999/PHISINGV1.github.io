@@ -1,6 +1,6 @@
 # 🚀 Phising education
 
-**Deskripsi Singkat**: Web palsu untuk sebagai bahan adukasi saja 
+- **Deskripsi Singkat**: Web palsu untuk sebagai bahan adukasi saja 
 
 
 ---
