@@ -12,7 +12,7 @@
 ## 🛠️ Instalasi
 ### Prasyarat
 - File Manager
-- Browser (Chorome)
+- Browser (Chrome)
 
 ### Langkah-Langkah
 - Download file Index di atas
